@@ -5,9 +5,11 @@
   --cor-borda: #4B0082;
   --cor-botao: #4B0082;
   --cor-botao-texto: #ffffff;
+  --cor-botao-deletar: #b30000; /* vermelho para deletar */
+  --cor-botao-deletar-hover: #800000;
 }
 
-/* reset simples */
+/* reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -30,19 +32,35 @@ body {
 /* títulos */
 h1 {
   text-align: center;
-  margin-bottom: 1rem; /* diminua ou aumente conforme quiser */
+  margin-bottom: 1rem;
 }
 
+/* caixa de instruções */
 .info-box {
   background-color: #f3f0ff; /* lilás bem claro */
   border-left: 4px solid var(--cor-principal);
   padding: 1rem;
-  margin-bottom: 2rem; /* aumenta o espaço entre a caixa e o conteúdo abaixo */
+  margin-bottom: 2rem;
   border-radius: 5px;
   font-size: 0.95rem;
   color: #333;
 }
 
+/* formulário de cadastro */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto 2rem auto;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 5px;
+  font-size: 1rem;
+}
 
 /* lista de livros */
 ul.livros-lista {
@@ -68,14 +86,20 @@ ul.livros-lista li:hover {
   transform: scale(1.02);
 }
 
+ul.livros-lista span,
 ul.livros-lista a {
   color: var(--cor-principal);
-  text-decoration: none;
   font-weight: bold;
   word-break: break-word;
 }
 
-/* botões */
+/* container de botões lado a lado */
+ul.livros-lista li .buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* botões gerais */
 button {
   background-color: var(--cor-botao);
   color: var(--cor-botao-texto);
@@ -91,20 +115,19 @@ button:hover {
   background-color: #35006b; /* roxo mais escuro */
 }
 
-/* formulário de cadastro */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 400px;
-  margin: 0 auto;
+/* botão Deletar específico */
+ul.livros-lista li .buttons button.delete {
+  background-color: var(--cor-botao-deletar);
 }
 
-input[type="text"] {
-  padding: 0.5rem;
-  border: 1px solid var(--cor-borda);
-  border-radius: 5px;
-  font-size: 1rem;
+ul.livros-lista li .buttons button.delete:hover {
+  background-color: var(--cor-botao-deletar-hover);
+}
+
+/* botão mostrar/esconder lista de deleção */
+button[type="button"] {
+  margin: 1rem auto;
+  display: block;
 }
 
 /* mensagens de status */
@@ -125,8 +148,20 @@ span {
     gap: 0.5rem;
   }
 
+  ul.livros-lista li .buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
   button {
     width: 100%;
   }
-}
 
+  .info-box {
+    font-size: 0.9rem;
+  }
+
+  form {
+    max-width: 100%;
+  }
+}

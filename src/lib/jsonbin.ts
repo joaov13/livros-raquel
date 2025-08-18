@@ -25,3 +25,9 @@ export async function updateBooks(books: Book[]): Promise<{ metadata: any }> {
   if (!res.ok) throw new Error(`Falha ao atualizar livros: ${res.status}`);
   return res.json();
 }
+
+export async function deleteBook(id: number) {
+  const books = await getBooks();
+  const filteredBooks = books.filter((b) => b.id !== id);
+  return updateBooks(filteredBooks);
+}
