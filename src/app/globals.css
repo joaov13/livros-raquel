@@ -1,0 +1,132 @@
+/* cores principais */
+:root {
+  --cor-principal: #4B0082; /* roxo */
+  --cor-fundo: #ffffff; /* branco */
+  --cor-borda: #4B0082;
+  --cor-botao: #4B0082;
+  --cor-botao-texto: #ffffff;
+}
+
+/* reset simples */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-principal);
+}
+
+/* container centralizado */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* títulos */
+h1 {
+  text-align: center;
+  margin-bottom: 1rem; /* diminua ou aumente conforme quiser */
+}
+
+.info-box {
+  background-color: #f3f0ff; /* lilás bem claro */
+  border-left: 4px solid var(--cor-principal);
+  padding: 1rem;
+  margin-bottom: 2rem; /* aumenta o espaço entre a caixa e o conteúdo abaixo */
+  border-radius: 5px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+
+/* lista de livros */
+ul.livros-lista {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+ul.livros-lista li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background-color: #f9f9ff;
+  transition: transform 0.1s;
+}
+
+ul.livros-lista li:hover {
+  transform: scale(1.02);
+}
+
+ul.livros-lista a {
+  color: var(--cor-principal);
+  text-decoration: none;
+  font-weight: bold;
+  word-break: break-word;
+}
+
+/* botões */
+button {
+  background-color: var(--cor-botao);
+  color: var(--cor-botao-texto);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #35006b; /* roxo mais escuro */
+}
+
+/* formulário de cadastro */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* mensagens de status */
+span {
+  font-style: italic;
+  color: #666;
+}
+
+/* responsividade */
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  ul.livros-lista li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
