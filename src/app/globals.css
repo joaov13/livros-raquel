@@ -29,15 +29,27 @@ body {
   padding: 2rem;
 }
 
-/* títulos */
-h1 {
+/* título principal grande */
+.titulo-principal {
   text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--cor-principal);
   margin-bottom: 1rem;
+}
+
+/* descrição principal acima do tutorial */
+.descricao-principal {
+  max-width: 700px;
+  margin: 0 auto 1.5rem auto;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #333;
 }
 
 /* caixa de instruções */
 .info-box {
-  background-color: #f3f0ff; /* lilás bem claro */
+  background-color: #f3f0ff; /* lilás claro */
   border-left: 4px solid var(--cor-principal);
   padding: 1rem;
   margin-bottom: 2rem;
@@ -157,11 +169,15 @@ span {
     width: 100%;
   }
 
-  .info-box {
+  .info-box, .descricao-principal {
     font-size: 0.9rem;
   }
 
   form {
     max-width: 100%;
+  }
+
+  .titulo-principal {
+    font-size: 2.2rem;
   }
 }
