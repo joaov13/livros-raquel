@@ -2,7 +2,6 @@ import { Book } from "@/types/book";
 
 const JSONBIN_KEY = "$2a$10$sSvX7wa5M7hdDocqPSBj/.JTqwsIVtSF9wzDvW9MpQIE8GjmQfH/W";
 const JSONBIN_ID = "68a35e7bae596e708fcd77c6";
-
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
 const HEADERS = {
   "Content-Type": "application/json",

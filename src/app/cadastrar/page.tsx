@@ -5,6 +5,7 @@ import { Book } from "@/types/book";
 import { getBooks, updateBooks, deleteBook } from "@/lib/jsonbin";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useRouter } from "next/navigation";
 
 const MySwal = withReactContent(Swal);
 
@@ -12,7 +13,8 @@ export default function CadastrarLivroPage() {
   const [nome, setNome] = useState("");
   const [link, setLink] = useState("");
   const [books, setBooks] = useState<Book[]>([]);
-  const [showDeleteList, setShowDeleteList] = useState(false);
+  const [showEditList, setShowEditList] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     fetchBooks();
@@ -37,7 +39,7 @@ export default function CadastrarLivroPage() {
       comprado: false,
       compradoPor: "",
     };
-    const updatedBooks = [...books, newBook];
+    const updatedBooks = [newBook, ...books];
     try {
       await updateBooks(updatedBooks);
       setBooks(updatedBooks);
@@ -71,24 +73,67 @@ export default function CadastrarLivroPage() {
     }
   }
 
+  async function handleEditarTitulo(book: Book) {
+    const { value: novoNome } = await MySwal.fire({
+      title: `Editar título de ${book.nome}`,
+      input: "text",
+      inputValue: book.nome,
+      showCancelButton: true,
+    });
+
+    if (novoNome) {
+      const updatedBooks = books.map((b) =>
+        b.id === book.id ? { ...b, nome: novoNome } : b
+      );
+      await updateBooks(updatedBooks);
+      setBooks(updatedBooks);
+    }
+  }
+
+  async function handleEditarComprador(book: Book) {
+    const { value: novoComprador } = await MySwal.fire({
+      title: `Editar comprador de ${book.nome}`,
+      input: "text",
+      inputValue: book.compradoPor,
+      showCancelButton: true,
+    });
+
+    if (novoComprador !== undefined) {
+      const updatedBooks = books.map((b) =>
+        b.id === book.id ? { ...b, compradoPor: novoComprador } : b
+      );
+      await updateBooks(updatedBooks);
+      setBooks(updatedBooks);
+    }
+  }
+
   return (
     <div className="container">
-      <div className="info-box">
-        <p>
-          Aqui você pode cadastrar novos livros. Preencha o nome e o link e clique em <strong>Adicionar</strong>.  
-          Use o botão <strong>Deletar livros</strong> para gerenciar e remover livros.
-        </p>
+      <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+        <button onClick={() => router.push("/")}>
+          Ir para página principal
+        </button>
       </div>
 
-      <h1>Cadastrar Livro</h1>
+      <div className="info-box">
+        <p>
+          Aqui você pode cadastrar novos livros. Preencha o nome e o link e
+          clique em <strong>Adicionar</strong>. Use o botão{" "}
+          <strong>Editar livros</strong> para gerenciar e modificar livros.
+        </p>
+      </div>
+      <h1 className="titulo-cadastro" style={{ textAlign: "center" }}>
+        Cadastrar Livro
+      </h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
         <input
           type="text"
           placeholder="Nome do livro"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
           required
+          style={{ width: "300px", maxWidth: "100%" }}
         />
         <input
           type="text"
@@ -96,29 +141,41 @@ export default function CadastrarLivroPage() {
           value={link}
           onChange={(e) => setLink(e.target.value)}
           required
+          style={{ width: "300px", maxWidth: "100%" }}
         />
-        <button type="submit">Adicionar</button>
+        <button type="submit" style={{ maxWidth: "150px" }}>Adicionar</button>
       </form>
 
       <div style={{ textAlign: "center", marginBottom: "1rem" }}>
         <p style={{ marginBottom: "0.5rem", fontStyle: "italic", color: "#666" }}>
-          Clique abaixo para mostrar a lista de livros e deletar os que desejar.
+          Clique abaixo para mostrar a lista de livros e editar ou deletar.
         </p>
-        <button
-          type="button"
-          onClick={() => setShowDeleteList((prev) => !prev)}
-        >
-          {showDeleteList ? "Fechar lista de deleção" : "Deletar livros"}
+        <button type="button" onClick={() => setShowEditList((prev) => !prev)}>
+          {showEditList ? "Fechar lista de edição" : "Editar livros"}
         </button>
       </div>
 
-
-      {showDeleteList && (
+      {showEditList && (
         <ul className="livros-lista">
           {books.map((book) => (
             <li key={book.id}>
-              <span>{book.nome}</span>
+              <span className="titulo-livro">{book.nome}</span>
+              {book.compradoPor && (
+                <span className="comprado-por">Comprado por: {book.compradoPor}</span>
+              )}
               <div className="buttons">
+                <button
+                  className="editar-titulo"
+                  onClick={() => handleEditarTitulo(book)}
+                >
+                  Editar Título
+                </button>
+                <button
+                  className="editar-comprador"
+                  onClick={() => handleEditarComprador(book)}
+                >
+                  Editar Comprador
+                </button>
                 <button className="delete" onClick={() => handleDelete(book)}>
                   Deletar
                 </button>
