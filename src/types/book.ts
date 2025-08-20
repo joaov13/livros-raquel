@@ -4,4 +4,5 @@ export type Book = {
   link: string;
   comprado: boolean;
   compradoPor: string;
+  imagem?: string;
 };

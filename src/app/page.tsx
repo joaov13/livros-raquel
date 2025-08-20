@@ -18,7 +18,7 @@ export default function LivrosPage() {
   async function fetchBooks() {
     try {
       const data = await getBooks();
-      // ordena não comprados primeiro
+      // Ordena não comprados primeiro
       data.sort((a, b) => Number(a.comprado) - Number(b.comprado));
       setBooks(data);
     } catch (err) {
@@ -50,6 +50,16 @@ export default function LivrosPage() {
     }
   }
 
+  function handleImagemClick(imagem?: string) {
+    const imgSrc = imagem && imagem.trim() !== "" ? imagem : "/sem_imagem.jpg";
+    MySwal.fire({
+      imageUrl: imgSrc,
+      imageAlt: "Imagem do livro",
+      showConfirmButton: false,
+      showCloseButton: true,
+    });
+  }
+
   return (
     <div className="container">
       <h1 className="titulo-principal">Livros para a Raquel</h1>
@@ -64,27 +74,36 @@ export default function LivrosPage() {
 
       <div className="info-box">
         <p>
-          Clique no botão <strong>Ver Livro</strong> para acessar o link de compra.
-          Clique em <strong>Comprar</strong> para marcar que você comprou o livro.
+          Clique na imagem para visualizar, no botão <strong>Comprar</strong> para
+          marcar que você comprou, e no botão <strong>Ver livro</strong> para acessar
+          a página de compra.
         </p>
       </div>
 
       <ul className="livros-lista">
         {books.map((book) => (
           <li key={book.id}>
-            <span className="titulo-livro">{book.nome}</span>
-            {book.compradoPor && (
-              <span className="comprado-por">Comprado por: {book.compradoPor}</span>
-            )}
-            <div className="buttons">
-              <a
-                href={book.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button>Ver Livro</button>
-              </a>
-              <button onClick={() => handleComprar(book)}>Comprar</button>
+            <img
+              src={book.imagem && book.imagem.trim() !== "" ? book.imagem : "/sem_imagem.jpg"}
+              alt={book.nome}
+              className={book.comprado ? "imagem-cinza" : ""}
+              onClick={() => handleImagemClick(book.imagem)}
+            />
+            <div className="book-info">
+              <span className="titulo-livro">{book.nome}</span>
+              {book.comprado && <span className="comprado-por">Comprado por: {book.compradoPor}</span>}
+              <div className="buttons">
+                {!book.comprado && (
+                  <button onClick={() => handleComprar(book)}>Comprar</button>
+                )}
+                <a
+                  href={book.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button>Ver livro</button>
+                </a>
+              </div>
             </div>
           </li>
         ))}

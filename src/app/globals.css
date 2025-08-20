@@ -7,8 +7,6 @@
   --cor-botao-texto: #ffffff;
   --cor-botao-deletar: #b30000; /* vermelho para deletar */
   --cor-botao-deletar-hover: #800000;
-  --cor-botao-editar: #0066cc; /* azul para editar */
-  --cor-botao-editar-hover: #004999;
 }
 
 /* reset */
@@ -87,8 +85,8 @@ ul.livros-lista {
 
 ul.livros-lista li {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 1rem;
   padding: 0.75rem 1rem;
   border: 1px solid var(--cor-borda);
   border-radius: 8px;
@@ -100,25 +98,43 @@ ul.livros-lista li:hover {
   transform: scale(1.02);
 }
 
-/* título do livro */
-span.titulo-livro {
-  color: var(--cor-principal);
-  font-weight: bold;
-  word-break: break-word;
+/* imagens dos livros */
+ul.livros-lista li img {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-/* comprador */
-span.comprado-por {
+ul.livros-lista li img.imagem-cinza {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+/* container direita: título e botões */
+.info-direita {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.titulo-livro {
+  font-weight: bold;
+  color: var(--cor-principal);
+}
+
+.comprado-por {
   font-style: italic;
   color: #666;
-  margin-top: 0.25rem;
-  display: block;
 }
 
 /* container de botões lado a lado */
 ul.livros-lista li .buttons {
   display: flex;
   gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 /* botões gerais */
@@ -131,7 +147,10 @@ button {
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s;
-  max-width: 150px; /* limite máximo para não expandir demais */
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 button:hover {
@@ -147,24 +166,6 @@ ul.livros-lista li .buttons button.delete:hover {
   background-color: var(--cor-botao-deletar-hover);
 }
 
-/* botão Editar Título */
-ul.livros-lista li .buttons button.editar-titulo {
-  background-color: var(--cor-botao-editar);
-}
-
-ul.livros-lista li .buttons button.editar-titulo:hover {
-  background-color: var(--cor-botao-editar-hover);
-}
-
-/* botão Editar Comprador */
-ul.livros-lista li .buttons button.editar-comprador {
-  background-color: var(--cor-botao-editar);
-}
-
-ul.livros-lista li .buttons button.editar-comprador:hover {
-  background-color: var(--cor-botao-editar-hover);
-}
-
 /* botão mostrar/esconder lista de deleção */
 button[type="button"] {
   margin: 1rem auto;
@@ -177,6 +178,15 @@ span {
   color: #666;
 }
 
+/* título da tela de cadastro */
+.titulo-cadastro {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--cor-principal);
+  margin-bottom: 1rem;
+}
+
 /* responsividade */
 @media (max-width: 600px) {
   .container {
@@ -185,8 +195,12 @@ span {
 
   ul.livros-lista li {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .info-direita {
+    align-items: center;
   }
 
   ul.livros-lista li .buttons {
@@ -211,10 +225,6 @@ span {
   }
 
   .titulo-cadastro {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--cor-principal);
-    margin-bottom: 1rem;
+    font-size: 2rem;
   }
 }
