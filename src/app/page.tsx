@@ -122,10 +122,15 @@ export default function LivrosPage() {
               <span className="comprado-por">Comprado por: {book.compradoPor}</span>
             )}
             <div className="buttons">
-              {!book.comprado && <button onClick={() => handleComprar(book)}>Comprar</button>}
-              <a href={book.link} target="_blank" rel="noopener noreferrer">
-                <button>Ver livro</button>
-              </a>
+              {!book.comprado && (
+                <button onClick={() => handleComprar(book)}>Comprar</button>
+              )}
+              <button
+                className="btn-ver-livro"
+                onClick={() => window.open(book.link, "_blank")}
+              >
+                Ver livro
+              </button>
             </div>
           </li>
         ))}

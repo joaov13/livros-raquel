@@ -99,6 +99,27 @@ button.delete:hover {
   background-color: var(--cor-botao-deletar-hover);
 }
 
+/* botão link "Ver livro" */
+.btn-ver-livro {
+  display: inline-block;
+  background-color: var(--cor-botao);
+  color: var(--cor-botao-texto);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.2s;
+  margin: 0.25rem;
+}
+
+.btn-ver-livro:hover {
+  background-color: #35006b;
+}
+
 /* formulário de cadastro */
 form {
   display: flex;
@@ -197,7 +218,8 @@ ul.livros-lista li .buttons {
     font-size: 1.2rem;
   }
 
-  button {
+  button,
+  .btn-ver-livro {
     width: 90%;
     max-width: 180px;
   }
@@ -206,7 +228,8 @@ ul.livros-lista li .buttons {
     max-width: 100%;
   }
 
-  .info-box, .descricao-principal {
+  .info-box,
+  .descricao-principal {
     font-size: 0.9rem;
   }
 }

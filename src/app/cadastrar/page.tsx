@@ -124,6 +124,25 @@ export default function CadastrarLivroPage() {
     setBooks(updatedBooks);
   }
 
+  // Função para editar link
+async function handleEditLink(book: Book) {
+  const { value: novoLink } = await MySwal.fire({
+    title: `Editar link de ${book.nome}`,
+    input: "text",
+    inputValue: book.link,
+    showCancelButton: true,
+  });
+
+  if (novoLink) {
+    const updatedBooks = books.map((b) =>
+      b.id === book.id ? { ...b, link: novoLink } : b
+    );
+    await updateBooks(updatedBooks);
+    setBooks(updatedBooks);
+  }
+}
+
+
   function handleImagemClick(imagem?: string) {
     const imgSrc = imagem && imagem.trim() !== "" ? imagem : "/sem_imagem.jpg";
     MySwal.fire({
@@ -201,10 +220,12 @@ export default function CadastrarLivroPage() {
                 <button onClick={() => handleEditTitle(book)}>Editar Título</button>
                 <button onClick={() => handleEditComprador(book)}>Editar Comprador</button>
                 <button onClick={() => handleEditImagem(book)}>Alterar Imagem</button>
+                <button onClick={() => handleEditLink(book)}>Editar Link</button> {/* Novo botão */}
                 <button className="delete" onClick={() => handleDelete(book)}>
                   Deletar
                 </button>
               </div>
+
             </li>
           ))}
         </ul>
