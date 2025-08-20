@@ -10,6 +10,8 @@ const MySwal = withReactContent(Swal);
 
 export default function LivrosPage() {
   const [books, setBooks] = useState<Book[]>([]);
+  const [showTutorial, setShowTutorial] = useState(false);
+  const [showEndereco, setShowEndereco] = useState(false);
 
   useEffect(() => {
     fetchBooks();
@@ -18,8 +20,7 @@ export default function LivrosPage() {
   async function fetchBooks() {
     try {
       const data = await getBooks();
-      // Ordena não comprados primeiro
-      data.sort((a, b) => Number(a.comprado) - Number(b.comprado));
+      data.sort((a, b) => Number(a.comprado) - Number(b.comprado)); // não comprados primeiro
       setBooks(data);
     } catch (err) {
       console.error(err);
@@ -64,21 +65,48 @@ export default function LivrosPage() {
     <div className="container">
       <h1 className="titulo-principal">Livros para a Raquel</h1>
 
-      <div className="descricao-principal">
-        <p>
-          Aqui tu pode ver os livros que a Raquel amaria receber de aniversário,
-          que é dia 15/09. Use a lista para ver onde comprar o livro e também
-          ver se alguém já comprou.
-        </p>
+      <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+        <button onClick={() => setShowTutorial((prev) => !prev)}>Como usar?</button>
+        <button onClick={() => setShowEndereco((prev) => !prev)} style={{ marginLeft: "1rem" }}>
+          Ver endereço
+        </button>
       </div>
 
-      <div className="info-box">
-        <p>
-          Clique na imagem para visualizar, no botão <strong>Comprar</strong> para
-          marcar que você comprou, e no botão <strong>Ver livro</strong> para acessar
-          a página de compra.
-        </p>
-      </div>
+      {showTutorial && (
+        <div className="info-box" style={{ textAlign: "center" }}>
+          <p>
+            Aqui você pode ver os livros que eu, Raquel, amaria receber de aniversário, que é dia  <strong>15/09</strong>.
+            Clique na  <strong>imagem</strong> para visualizar, no botão <strong>Comprar</strong> para marcar que você comprou,
+            e no botão <strong>Ver livro</strong> para acessar a página de compra.
+            <br />
+            <li> Lembrando que esse site não tem vínculo com os sites de compra e serve apenas como uma lista</li>
+            <li> Use a funcionalidade de <strong>comprar</strong> apenas se você realmente comprou o livro</li>
+            <li> Com dúvidas? Mande um whats para mim em:  
+              <a 
+                href="https://wa.me/5551997698730" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >+55 51 99769-8730</a>
+            </li>
+            
+          </p>
+        </div>
+      )}
+
+      {showEndereco && (
+        <div className="info-box" style={{ textAlign: "center" }}>
+          <p>Avenida Fausto Borba Prates, 3789, Centro, Cidreira - RS, 95595000</p>
+          <iframe
+            title="Mapa do endereço"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3578.2782655130836!2d-50.183333!3d-30.169167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9508a123456789ab%3A0xc0ffee1234567890!2sAvenida%20Fausto%20Borba%20Prates%2C%203789%2C%20Cidreira%20-%20RS!5e0!3m2!1spt-BR!2sbr!4v1692500000000!5m2!1spt-BR!2sbr"
+            width="100%"
+            height="300"
+            style={{ border: 0, marginTop: "0.5rem" }}
+            allowFullScreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      )}
 
       <ul className="livros-lista">
         {books.map((book) => (
@@ -89,25 +117,15 @@ export default function LivrosPage() {
               className={book.comprado ? "imagem-cinza" : ""}
               onClick={() => handleImagemClick(book.imagem)}
             />
-            <div className="book-info">
-              <div className="titulo-comprador">
-                <span className="titulo-livro">{book.nome}</span>
-                {book.comprado && (
-                  <span className="comprado-por">Comprado por: {book.compradoPor}</span>
-                )}
-              </div>
-              <div className="buttons">
-                {!book.comprado && (
-                  <button onClick={() => handleComprar(book)}>Comprar</button>
-                )}
-                <a
-                  href={book.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <button>Ver livro</button>
-                </a>
-              </div>
+            <span className="titulo-livro">{book.nome}</span>
+            {book.comprado && (
+              <span className="comprado-por">Comprado por: {book.compradoPor}</span>
+            )}
+            <div className="buttons">
+              {!book.comprado && <button onClick={() => handleComprar(book)}>Comprar</button>}
+              <a href={book.link} target="_blank" rel="noopener noreferrer">
+                <button>Ver livro</button>
+              </a>
             </div>
           </li>
         ))}
