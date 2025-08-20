@@ -123,7 +123,7 @@ export default function LivrosPage() {
             )}
             <div className="buttons">
               {!book.comprado && (
-                <button onClick={() => handleComprar(book)}>Comprar</button>
+                <button onClick={() => handleComprar(book)}>Comprei</button>
               )}
               <button
                 className="btn-ver-livro"
