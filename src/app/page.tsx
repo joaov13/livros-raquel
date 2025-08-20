@@ -66,7 +66,7 @@ export default function LivrosPage() {
 
       <div className="descricao-principal">
         <p>
-          Aqui tu pode ver os livros que a Raquel amaria receber de aniverário,
+          Aqui tu pode ver os livros que a Raquel amaria receber de aniversário,
           que é dia 15/09. Use a lista para ver onde comprar o livro e também
           ver se alguém já comprou.
         </p>
@@ -90,8 +90,12 @@ export default function LivrosPage() {
               onClick={() => handleImagemClick(book.imagem)}
             />
             <div className="book-info">
-              <span className="titulo-livro">{book.nome}</span>
-              {book.comprado && <span className="comprado-por">Comprado por: {book.compradoPor}</span>}
+              <div className="titulo-comprador">
+                <span className="titulo-livro">{book.nome}</span>
+                {book.comprado && (
+                  <span className="comprado-por">Comprado por: {book.compradoPor}</span>
+                )}
+              </div>
               <div className="buttons">
                 {!book.comprado && (
                   <button onClick={() => handleComprar(book)}>Comprar</button>

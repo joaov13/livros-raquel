@@ -172,7 +172,9 @@ export default function CadastrarLivroPage() {
           value={imagem}
           onChange={(e) => setImagem(e.target.value)}
         />
-        <button type="submit">Adicionar</button>
+        <div style={{ textAlign: "center" }}>
+          <button type="submit" className="add-button">Adicionar</button>
+        </div>
       </form>
 
       <div style={{ textAlign: "center", marginBottom: "1rem" }}>
@@ -191,19 +193,17 @@ export default function CadastrarLivroPage() {
                 className={book.comprado ? "imagem-cinza" : ""}
                 onClick={() => handleImagemClick(book.imagem)}
               />
-              <div className="book-info">
-                <span className="titulo-livro">{book.nome}</span>
-                {book.comprado && (
-                  <span className="comprado-por">Comprado por: {book.compradoPor}</span>
-                )}
-                <div className="buttons">
-                  <button onClick={() => handleEditTitle(book)}>Editar Título</button>
-                  <button onClick={() => handleEditComprador(book)}>Editar Comprador</button>
-                  <button onClick={() => handleEditImagem(book)}>Alterar Imagem</button>
-                  <button className="delete" onClick={() => handleDelete(book)}>
-                    Deletar
-                  </button>
-                </div>
+              <span className="titulo-livro">{book.nome}</span>
+              {book.comprado && (
+                <span className="comprado-por">Comprado por: {book.compradoPor}</span>
+              )}
+              <div className="buttons">
+                <button onClick={() => handleEditTitle(book)}>Editar Título</button>
+                <button onClick={() => handleEditComprador(book)}>Editar Comprador</button>
+                <button onClick={() => handleEditImagem(book)}>Alterar Imagem</button>
+                <button className="delete" onClick={() => handleDelete(book)}>
+                  Deletar
+                </button>
               </div>
             </li>
           ))}

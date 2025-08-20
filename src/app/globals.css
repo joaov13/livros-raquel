@@ -1,11 +1,11 @@
 /* cores principais */
 :root {
-  --cor-principal: #4B0082; /* roxo */
-  --cor-fundo: #ffffff; /* branco */
+  --cor-principal: #4B0082; 
+  --cor-fundo: #ffffff;
   --cor-borda: #4B0082;
   --cor-botao: #4B0082;
   --cor-botao-texto: #ffffff;
-  --cor-botao-deletar: #b30000; /* vermelho para deletar */
+  --cor-botao-deletar: #b30000; 
   --cor-botao-deletar-hover: #800000;
 }
 
@@ -15,7 +15,6 @@
   margin: 0;
   padding: 0;
 }
-
 body {
   font-family: Arial, sans-serif;
   background-color: var(--cor-fundo);
@@ -29,36 +28,36 @@ body {
   padding: 2rem;
 }
 
-/* título principal grande */
+/* títulos */
 .titulo-principal {
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
-  color: var(--cor-principal);
   margin-bottom: 1rem;
 }
-
-/* descrição principal acima do tutorial */
-.descricao-principal {
-  max-width: 700px;
-  margin: 0 auto 1.5rem auto;
+.titulo-cadastro {
   text-align: center;
-  font-size: 1.1rem;
-  color: #333;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.descricao-principal,
+.info-box {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 /* caixa de instruções */
 .info-box {
-  background-color: #f3f0ff; /* lilás claro */
+  background-color: #f3f0ff;
   border-left: 4px solid var(--cor-principal);
   padding: 1rem;
-  margin-bottom: 2rem;
   border-radius: 5px;
   font-size: 0.95rem;
   color: #333;
 }
 
-/* formulário de cadastro */
+/* formulário */
 form {
   display: flex;
   flex-direction: column;
@@ -66,75 +65,11 @@ form {
   max-width: 400px;
   margin: 0 auto 2rem auto;
 }
-
 input[type="text"] {
   padding: 0.5rem;
   border: 1px solid var(--cor-borda);
   border-radius: 5px;
   font-size: 1rem;
-}
-
-/* lista de livros */
-ul.livros-lista {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-ul.livros-lista li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--cor-borda);
-  border-radius: 8px;
-  background-color: #f9f9ff;
-  transition: transform 0.1s;
-}
-
-ul.livros-lista li:hover {
-  transform: scale(1.02);
-}
-
-/* imagens dos livros */
-ul.livros-lista li img {
-  width: 80px;
-  height: 100px;
-  object-fit: cover;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-ul.livros-lista li img.imagem-cinza {
-  filter: grayscale(100%);
-  opacity: 0.7;
-}
-
-/* container direita: título e botões */
-.info-direita {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.titulo-livro {
-  font-weight: bold;
-  color: var(--cor-principal);
-}
-
-.comprado-por {
-  font-style: italic;
-  color: #666;
-}
-
-/* container de botões lado a lado */
-ul.livros-lista li .buttons {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
 }
 
 /* botões gerais */
@@ -152,79 +87,107 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 button:hover {
-  background-color: #35006b; /* roxo mais escuro */
+  background-color: #35006b; 
 }
-
-/* botão Deletar específico */
-ul.livros-lista li .buttons button.delete {
+button.delete {
   background-color: var(--cor-botao-deletar);
 }
-
-ul.livros-lista li .buttons button.delete:hover {
+button.delete:hover {
   background-color: var(--cor-botao-deletar-hover);
 }
 
-/* botão mostrar/esconder lista de deleção */
-button[type="button"] {
-  margin: 1rem auto;
-  display: block;
+/* lista de livros */
+ul.livros-lista {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+ul.livros-lista li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background-color: #f9f9ff;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+ul.livros-lista li:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* mensagens de status */
-span {
+/* imagens dos livros */
+ul.livros-lista li img {
+  width: 25%;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+ul.livros-lista li img.imagem-cinza {
+  filter: grayscale(100%);
+  opacity: 0.7;
+}
+
+/* informações do livro */
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.titulo-comprador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+.titulo-livro {
+  font-weight: bold;
+  color: black;
+  font-size: 1.4rem;
+  text-align: center;
+}
+.comprado-por {
   font-style: italic;
   color: #666;
+  text-align: center;
 }
 
-/* título da tela de cadastro */
-.titulo-cadastro {
-  text-align: center;
-  font-size: 2.5rem;
+/* botões do livro */
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+/* botão adicionar verde */
+.add-button {
+  background-color: #28a745;
+  color: #fff;
+  max-width: 150px;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   font-weight: bold;
-  color: var(--cor-principal);
-  margin-bottom: 1rem;
+}
+
+.add-button:hover {
+  background-color: #218838;
 }
 
 /* responsividade */
 @media (max-width: 600px) {
-  .container {
-    padding: 1rem;
-  }
-
-  ul.livros-lista li {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .info-direita {
-    align-items: center;
-  }
-
-  ul.livros-lista li .buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  .info-box, .descricao-principal {
-    font-size: 0.9rem;
-  }
-
-  form {
-    max-width: 100%;
-  }
-
-  .titulo-principal {
-    font-size: 2.2rem;
-  }
-
-  .titulo-cadastro {
-    font-size: 2rem;
-  }
+  .container { padding: 1rem; }
+  ul.livros-lista li img { width: 40%; margin-bottom: 0.75rem; }
+  .titulo-livro { font-size: 1.2rem; }
+  form { max-width: 100%; }
+  .info-box, .descricao-principal { font-size: 0.9rem; }
+  button { width: 100%; }
 }
